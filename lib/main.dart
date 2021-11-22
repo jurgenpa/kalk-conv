@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'dart:math';
+import 'package:kalkulaator/views/converter_page.dart';
 
 void main() => runApp(MyApp());
 
@@ -15,8 +16,8 @@ class MyHomeApp extends StatefulWidget
   _MyHomeAppState createState() => _MyHomeAppState();
 }
 
-class _MyHomeAppState extends State<MyHomeApp>
-{
+class _MyHomeAppState extends State<MyHomeApp> {
+
 
   late TextEditingController _value1Controller, _value2Controller;
   late String vastus;
@@ -57,8 +58,6 @@ class _MyHomeAppState extends State<MyHomeApp>
     _value2Controller.dispose();
   }
 
-
-
   void _calcUpdate(String opr) {
     setState(() {
       final double vaartus1 = double.parse(_value1Controller.text);
@@ -91,9 +90,12 @@ class _MyHomeAppState extends State<MyHomeApp>
   }
 
 
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+
       appBar: AppBar(
         title: Text('Kalkulaator'),
       ),
@@ -110,8 +112,9 @@ class _MyHomeAppState extends State<MyHomeApp>
             Divider(height: 4, color: Colors.grey, thickness: 5, ),
             _buildValue1TextField(),
             _buildValue2TextField(),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
+            Wrap(
+              alignment: WrapAlignment.center,
+              direction: Axis.horizontal,
               children: [
                 ElevatedButton(onPressed: () {
                   _calcUpdate("+");
@@ -137,13 +140,16 @@ class _MyHomeAppState extends State<MyHomeApp>
                   _calcUpdate("CE");
                 }, child: Text("CE", style: TextStyle(fontSize: 20,),)),
 
+                ElevatedButton(onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => const ConverterPage()));
+                }, child: Text("Km -> Miles", style: TextStyle(fontSize: 20,),)),
               ],
             )
-
           ],
         ),
       ),
     );
   }
-
 }
